@@ -3,7 +3,6 @@ import {Text, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-
 import {styles} from '../theme/appTheme';
 import {MenuItem} from '../interfaces/menuItemInterface';
 import {FlatListMenuItem} from '../components/FlatListMenuItem';
@@ -12,12 +11,12 @@ const menuItems: MenuItem[] = [
   {
     name: 'Animation 101',
     icon: 'cube-outline',
-    component: 'Animation101Screen',
+    component: 'Animated101Screen',
   },
   {
     name: 'Animation 102',
     icon: 'albums-outline',
-    component: 'Animation102Screen',
+    component: 'Animated102Screen',
   },
 ];
 

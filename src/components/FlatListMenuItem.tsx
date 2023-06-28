@@ -5,14 +5,23 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import {MenuItem} from '../interfaces/menuItemInterface';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/core';
 
 interface Props {
   menuItem: MenuItem;
 }
 
-export const FlatListMenuItem = ({menuItem: {name, icon}}: Props) => {
+// interface Props extends StackScreenProps<any, any> {}
+
+export const FlatListMenuItem = ({
+  menuItem: {name, icon, component},
+}: Props) => {
+  const navigation = useNavigation<any>();
+
   return (
-    <TouchableOpacity activeOpacity={0.8}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => navigation.navigate(component)}>
       <View style={styles.container}>
         <Icon name={icon} color="grey" size={20} />
         <Text style={styles.itemText}>{name}</Text>
