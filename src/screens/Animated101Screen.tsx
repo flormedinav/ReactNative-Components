@@ -1,36 +1,32 @@
-import {useRef} from 'react';
 import {View, StyleSheet, Animated, Button} from 'react-native';
+import {useAnimation} from '../hooks/useAnimation';
 
 export const Animated101Screen = () => {
-  const opacity = useRef(new Animated.Value(0)).current;
-
-  const fadeIn = () => {
-    Animated.timing(opacity, {
-      toValue: 1,
-      duration: 300,
-      useNativeDriver: true,
-    }).start(() => console.log('Animación terminó'));
-  };
-
-  const fadeOut = () => {
-    Animated.timing(opacity, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  };
+  const {opacity, position, fadeIn, fadeOut, startMovingPosition} =
+    useAnimation();
 
   return (
     <View style={styles.container}>
       <Animated.View
         style={{
           ...styles.purpleBox,
-          opacity: opacity,
+          opacity,
           marginBottom: 20,
+          transform: [
+            {
+              translateY: position,
+            },
+          ],
         }}
       />
 
-      <Button title="FadeIn" onPress={fadeIn} />
+      <Button
+        title="FadeIn"
+        onPress={() => {
+          fadeIn();
+          startMovingPosition(-100);
+        }}
+      />
       <Button title="FadeOut" onPress={fadeOut} />
     </View>
   );
@@ -83,3 +79,22 @@ const styles = StyleSheet.create({
 //     useNativeDriver: true,
 //   }).start(() => console.log('Animación terminó'));
 // };
+
+//?ANIMACIÓN PARA QUE CAIGA Y REBOTE
+//Creamos un nuevo useRef -> top a -100
+//Usamos nuevamente el timing.
+//A la propiedad transform de css en translateY es a la que le vamos a determinar el valor de top:
+// transform: [
+//   {
+//     translateY: top,
+//   },
+
+//Y para que tenga el efecto de rebote agregamos la propiedad de easing en el objeto de configuración.
+//Ese efecto de rebote lo obtenemos de Easing.bounce. (hay muchos más efectos)
+
+// Animated.timing(top, {
+//   toValue: 0,
+//   duration: 800,
+//   useNativeDriver: true,
+//   easing: Easing.bounce,
+// }).start();
